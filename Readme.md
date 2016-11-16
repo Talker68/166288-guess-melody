@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Саян Жакупбеков](https://up.htmlacademy.ru/ecmascript/1/user/166288).
-* Наставник: `Неизвестно`.
+* Наставник: [Игорь Кузнецов](https://htmlacademy.ru/profile/id201747).
 
 ---
 
