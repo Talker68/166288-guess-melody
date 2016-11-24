@@ -35,17 +35,25 @@ const moduleString = `<section class="main main--level main--level-genre">
 const mainLevelGenre = domConstructors.getElementFromTemplate(moduleString);
 const answerSendBtn = mainLevelGenre.querySelector('.genre-answer-send');
 
-//Поумолчанию задизаблена кнопка "Ответить"
+/**
+ * Поумолчанию задизаблена кнопка "Ответить"
+ */
 answerSendBtn.disabled = true;
 
 const checkboxList = mainLevelGenre.querySelectorAll('input[type="checkbox"]');
 
-//Отменить отправку формы, отрисовать дом-элемент
-const nextScreen = (e) => {
-  e.preventDefault();
+/**
+ * Отменить отправку формы, отрисовать дом-элемент
+ * @param{Node} event
+ */
+const nextScreen = (event) => {
+  event.preventDefault();
   domConstructors.renderElement(mainResult);
 };
-//Если выбран ответ, отменить answerSendBtn.disabled
+/**
+ * Если выбран ответ, отменить answerSendBtn.disabled
+ * @param{Node} checkbox
+ */
 checkboxList.forEach((checkbox) => {
   checkbox.addEventListener('change', () => {
     answerSendBtn.disabled = !mainLevelGenre.querySelectorAll('input[type="checkbox"]:checked').length;
