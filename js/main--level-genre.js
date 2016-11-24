@@ -42,14 +42,14 @@ const checkboxList = mainLevelGenre.querySelectorAll('input[type="checkbox"]');
 
 //Отменить отправку формы, отрисовать дом-элемент
 const nextScreen = (e) => {
-	e.preventDefault();
-	domConstructors.renderElement(mainResult);
-}
+  e.preventDefault();
+  domConstructors.renderElement(mainResult);
+};
 //Если выбран ответ, отменить answerSendBtn.disabled
 checkboxList.forEach((checkbox) => {
-	checkbox.addEventListener('change', () => {
-		answerSendBtn.disabled = !mainLevelGenre.querySelectorAll('input[type="checkbox"]:checked').length;
-	});
+  checkbox.addEventListener('change', () => {
+    answerSendBtn.disabled = !mainLevelGenre.querySelectorAll('input[type="checkbox"]:checked').length;
+  });
 });
 
 answerSendBtn.addEventListener('click', nextScreen);
