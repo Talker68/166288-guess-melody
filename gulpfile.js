@@ -11,8 +11,8 @@ const mqpacker = require('css-mqpacker');
 const minify = require('gulp-csso');
 const rename = require('gulp-rename');
 const imagemin = require('gulp-imagemin');
-const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
+const babel = require('gulp-babel');
 const webpack = require('gulp-webpack');
 
 gulp.task('style', function () {
@@ -42,14 +42,14 @@ gulp.task('scripts', function () {
   gulp.src('js/main.js')
     .pipe(plumber())
     .pipe(webpack({
-      devtool:'source-map',
+      devtool: 'source-map',
       module: {
         loaders: [
-          { test: /\.js$/, loader: 'babel-loader' },
+          { test: /\.js$/, loader: 'babel-loader'},
         ],
       },
-      output:{
-        filename:'main.js'
+      output: {
+        filename: 'main.js'
       }
     }))
     .pipe(gulp.dest('build/js/'));
@@ -83,7 +83,7 @@ gulp.task('copy', ['copy-html', 'scripts', 'style'], function () {
 });
 
 gulp.task('clean', function () {
-  return del(['build/*','build'],{force:true});
+  return del('build');
 });
 
 gulp.task('serve', ['assemble'], function () {
@@ -96,16 +96,11 @@ gulp.task('serve', ['assemble'], function () {
   });
 
   gulp.watch('sass/**/*.{scss,sass}', ['style']);
-<<<<<<< HEAD
-
-  gulp.watch('*.html', ['copy-html']);
-=======
   gulp.watch('*.html').on('change', (e) => {
     if (e.type !== 'deleted') {
       gulp.start('copy-html');
     }
   });
->>>>>>> 016efc38771d8d016223ba16b6e25ea3fd57341f
   gulp.watch('js/**/*.js', ['scripts']).on('change', server.reload);
 });
 
