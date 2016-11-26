@@ -1,4 +1,5 @@
-import * as dom from './create-dom-element';
+import * as domConstructors from './dom-constructors';
+import mainLevelArtist from './main--level-artist';
 
 const moduleString = `<section class="main main--welcome">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
@@ -12,5 +13,9 @@ const moduleString = `<section class="main main--welcome">
     </p>
   </section>`;
 
-const moduleOneElement = dom.getElementFromTemplate(moduleString);
-export default moduleOneElement;
+const mainWelcome = domConstructors.getElementFromTemplate(moduleString);
+const mainPlayBtn = mainWelcome.querySelector('.main-play');
+
+mainPlayBtn.addEventListener('click', () => domConstructors.renderElement(mainLevelArtist));
+
+export default mainWelcome;

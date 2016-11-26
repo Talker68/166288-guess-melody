@@ -1,4 +1,4 @@
-import * as dom from './create-dom-element';
+import * as domConstructors from './dom-constructors';
 
 const moduleString = `<section class="main main--result">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
@@ -8,5 +8,5 @@ const moduleString = `<section class="main main--result">
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
   </section>`;
 
-const moduleFourElement = dom.getElementFromTemplate(moduleString);
-export default moduleFourElement;
+const mainResult = domConstructors.getElementFromTemplate(moduleString);
+export default mainResult;
