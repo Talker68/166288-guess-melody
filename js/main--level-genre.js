@@ -1,35 +1,47 @@
 import * as domConstructors from './dom-constructors';
 import mainResult from './main--result';
 
+const genreAnswer = new Set([
+  {player: '<div class="player-wrapper"></div>'},
+  {player: '<div class="player-wrapper"></div>'},
+  {player: '<div class="player-wrapper"></div>'},
+  {player: '<div class="player-wrapper"></div>'}
+]);
+
+const levelGenre = {
+  title: 'Выберите инди-рок треки',
+  genreAnswer: genreAnswer,
+  button: 'Ответить'
+};
+
+const title = `<h2 class="title">${levelGenre.title}</h2>`;
+
+const button = `<button class="genre-answer-send" type="submit">${levelGenre.button}</button>`;
+
+const getGenreAnswerList = (obj) => {
+  let genreAnswerHtml = '';
+  let index = 0;
+
+  for (let it of obj) {
+    index++;
+    genreAnswerHtml += `<div class="genre-answer">
+        ${it.player}
+        <input type="checkbox" name="answer" value="answer-1" id="a-${index}">
+        <label class="genre-answer-check" for="a-${index}"></label>
+      </div>`;
+  }
+
+  return genreAnswerHtml;
+};
+
+const genreForm = `<form class="genre">
+      ${getGenreAnswerList(levelGenre.genreAnswer)}
+      ${button}
+    </form>`;
+
 const moduleString = `<section class="main main--level main--level-genre">
-    <h2 class="title">Выберите инди-рок треки</h2>
-    <form class="genre">
-      <div class="genre-answer">
-        <div class="player-wrapper"></div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-1">
-        <label class="genre-answer-check" for="a-1"></label>
-      </div>
-
-      <div class="genre-answer">
-        <div class="player-wrapper"></div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-2">
-        <label class="genre-answer-check" for="a-2"></label>
-      </div>
-
-      <div class="genre-answer">
-        <div class="player-wrapper"></div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-3">
-        <label class="genre-answer-check" for="a-3"></label>
-      </div>
-
-      <div class="genre-answer">
-        <div class="player-wrapper"></div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-4">
-        <label class="genre-answer-check" for="a-4"></label>
-      </div>
-
-      <button class="genre-answer-send" type="submit">Ответить</button>
-    </form>
+    ${title}
+    ${genreForm}
   </section>`;
 
 const mainLevelGenre = domConstructors.getElementFromTemplate(moduleString);
