@@ -1,16 +1,9 @@
 import * as domConstructors from './dom-constructors';
 import mainResult from './main--result';
 
-const genreAnswer = new Set([
-  {player: '<div class="player-wrapper"></div>'},
-  {player: '<div class="player-wrapper"></div>'},
-  {player: '<div class="player-wrapper"></div>'},
-  {player: '<div class="player-wrapper"></div>'}
-]);
-
 const levelGenre = {
   title: 'Выберите инди-рок треки',
-  genreAnswer: genreAnswer,
+  numberOfOptions: 4,
   button: 'Ответить'
 };
 
@@ -18,16 +11,14 @@ const title = `<h2 class="title">${levelGenre.title}</h2>`;
 
 const button = `<button class="genre-answer-send" type="submit">${levelGenre.button}</button>`;
 
-const getGenreAnswerList = (obj) => {
+const getGenreAnswerList = (num) => {
   let genreAnswerHtml = '';
-  let index = 0;
 
-  for (let it of obj) {
-    index++;
+  for (let i = 0; i < num; i++) {
     genreAnswerHtml += `<div class="genre-answer">
-        ${it.player}
-        <input type="checkbox" name="answer" value="answer-1" id="a-${index}">
-        <label class="genre-answer-check" for="a-${index}"></label>
+        <div class="player-wrapper"></div>'
+        <input type="checkbox" name="answer" value="answer-1" id="a-${i}">
+        <label class="genre-answer-check" for="a-${i}"></label>
       </div>`;
   }
 
@@ -35,7 +26,7 @@ const getGenreAnswerList = (obj) => {
 };
 
 const genreForm = `<form class="genre">
-      ${getGenreAnswerList(levelGenre.genreAnswer)}
+      ${getGenreAnswerList(levelGenre.numberOfOptions)}
       ${button}
     </form>`;
 
