@@ -1,10 +1,20 @@
 import * as domConstructors from './dom-constructors';
+import logoHtml from './logo';
+
+const result = {
+  status: 'Вы настоящий меломан!',
+  time: 2,
+  quantum: 4,
+  comparison: 80
+};
+
+const playerResults = `<h2 class="title">${result.status}</h2>
+    <div class="main-stat">За&nbsp;${result.time}&nbsp;минуты<br>вы&nbsp;отгадали ${result.quantum}&nbsp;мелодии</div>
+    <span class="main-comparison">Это&nbsp;лучше чем у&nbsp;${result.comparison}%&nbsp;игроков</span>`;
 
 const moduleString = `<section class="main main--result">
-    <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
-    <h2 class="title">Вы настоящий меломан!</h2>
-    <div class="main-stat">За&nbsp;2&nbsp;минуты<br>вы&nbsp;отгадали 4&nbsp;мелодии</div>
-    <span class="main-comparison">Это&nbsp;лучше чем у&nbsp;80%&nbsp;игроков</span>
+    ${logoHtml}
+    ${playerResults}
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
   </section>`;
 
