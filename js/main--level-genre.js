@@ -1,9 +1,14 @@
 import * as domConstructors from './dom-constructors';
+import getSvgTimer from './get-svg-timer';
 import mainResult from './main--result';
 
 const levelGenre = {
   title: 'Выберите инди-рок треки',
   numberOfOptions: 4,
+  timer: {
+    minutes: '02',
+    seconds: '00'
+  },
   button: 'Ответить'
 };
 
@@ -31,6 +36,7 @@ const genreForm = `<form class="genre">
     </form>`;
 
 const moduleString = `<section class="main main--level main--level-genre">
+    ${getSvgTimer(levelGenre.timer)}
     ${title}
     ${genreForm}
   </section>`;

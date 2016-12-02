@@ -1,4 +1,5 @@
 import * as domConstructors from './dom-constructors';
+import getSvgTimer from './get-svg-timer';
 import mainLevelGenre from './main--level-genre';
 
 const answer = new Set([
@@ -9,25 +10,25 @@ const answer = new Set([
 
 const levelArtist = {
   timer: {
-    mins: '02',
-    secs: '00'
+    minutes: '02',
+    seconds: '00'
   },
   title: 'Кто исполняет эту песню?',
   answer: answer
 };
 
-const svgTimer = `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-      <circle
-        cx="390" cy="390" r="370"
-        class="timer-line"
-        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-        <span class="timer-value-mins">${levelArtist.timer.mins}</span><!--
-        --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">${levelArtist.timer.secs}</span>
-      </div>
-    </svg>`;
+// const svgTimer = `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
+//       <circle
+//         cx="390" cy="390" r="370"
+//         class="timer-line"
+//         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+//
+//       <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
+//         <span class="timer-value-mins">${levelArtist.timer.mins}</span><!--
+//         --><span class="timer-value-dots">:</span><!--
+//         --><span class="timer-value-secs">${levelArtist.timer.secs}</span>
+//       </div>
+//     </svg>`;
 
 const getAnswerList = (obj) => {
 
@@ -53,7 +54,7 @@ const answerList = `<form class="main-list">
 
 
 const moduleString = `<section class="main main--level main--level-artist">
-    ${svgTimer}
+    ${getSvgTimer(levelArtist.timer)}
     <div class="main-wrap">
       <div class="main-timer"></div>
       <h2 class="title main-title">${levelArtist.title}</h2>
