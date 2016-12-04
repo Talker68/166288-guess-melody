@@ -1,11 +1,10 @@
 import * as domConstructors from './dom-constructors';
-import getLevelArtist from './main--level-artist';
 import logoHtml from './logo';
-import data from './data';
+import nextQuestion from './game';
 
-const getMainWelcome = (data) => {
-  const rulesHtml = `<h2 class="title main-title">${data.title}</h2>
-    <p class="text main-text">${data.content}</p>`;
+export default (dataInput) => {
+  const rulesHtml = `<h2 class="title main-title">${dataInput.title}</h2>
+    <p class="text main-text">${dataInput.content}</p>`;
 
   const moduleString = `<section class="main main--welcome">
     ${logoHtml}
@@ -16,9 +15,9 @@ const getMainWelcome = (data) => {
   const mainWelcome = domConstructors.getElementFromTemplate(moduleString);
   const mainPlayBtn = mainWelcome.querySelector('.main-play');
 
-  mainPlayBtn.addEventListener('click', () => domConstructors.renderElement(getLevelArtist));
+  mainPlayBtn.addEventListener('click', () => {
+    nextQuestion();
+  });
 
   return mainWelcome;
 };
-
-export default getMainWelcome(data.rules);

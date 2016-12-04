@@ -1,4 +1,5 @@
 import * as domConstructors from './dom-constructors';
-import getMainWelcome from './main--welcome';
+import createMainWelcome from './welcome';
+import {data} from './game';
 
-domConstructors.renderElement(getMainWelcome);
+domConstructors.renderElement(createMainWelcome(data.rules));
