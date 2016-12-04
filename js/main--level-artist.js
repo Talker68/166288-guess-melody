@@ -1,6 +1,8 @@
 import * as domConstructors from './dom-constructors';
 import getSvgTimer from './get-svg-timer';
 import mainLevelGenre from './main--level-genre';
+import mainResult from './main--result';
+import data from './data'
 
 const answer = new Set([
   {src: '', value: 'Пелагея'},
@@ -10,25 +12,12 @@ const answer = new Set([
 
 const levelArtist = {
   timer: {
-    minutes: '02',
-    seconds: '00'
+    minutes: 2,
+    seconds: 0
   },
   title: 'Кто исполняет эту песню?',
   answer: answer
 };
-
-// const svgTimer = `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-//       <circle
-//         cx="390" cy="390" r="370"
-//         class="timer-line"
-//         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-//
-//       <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-//         <span class="timer-value-mins">${levelArtist.timer.mins}</span><!--
-//         --><span class="timer-value-dots">:</span><!--
-//         --><span class="timer-value-secs">${levelArtist.timer.secs}</span>
-//       </div>
-//     </svg>`;
 
 const getAnswerList = (obj) => {
 
@@ -48,25 +37,31 @@ const getAnswerList = (obj) => {
   return answerListContent;
 };
 
-const answerList = `<form class="main-list">
-        ${getAnswerList(levelArtist.answer)}
+const getLevelArtist = (data) => {
+
+  const answerList = `<form class="main-list">
+        ${getAnswerList(data.answer)}
       </form>`;
 
-
-const moduleString = `<section class="main main--level main--level-artist">
-    ${getSvgTimer(levelArtist.timer)}
+  const moduleString = `<section class="main main--level main--level-artist">
+    ${getSvgTimer(data.timer)}
     <div class="main-wrap">
       <div class="main-timer"></div>
-      <h2 class="title main-title">${levelArtist.title}</h2>
+      <h2 class="title main-title">${data.title}</h2>
       <div class="player-wrapper"></div>
       ${answerList}
     </div>
   </section>`;
 
-const mainLevelArtist = domConstructors.getElementFromTemplate(moduleString);
-const answerBtnList = mainLevelArtist.querySelectorAll('.main-answer');
-const nextScreen = () => domConstructors.renderElement(mainLevelGenre);
+  const mainLevelArtist = domConstructors.getElementFromTemplate(moduleString);
+  const answerBtnList = mainLevelArtist.querySelectorAll('.main-answer');
+  const nextScreen = () => domConstructors.renderElement(mainResult);
 
-answerBtnList.forEach((btn) => btn.addEventListener('click', nextScreen));
+  for (let it of answerBtnList) {
+    it.addEventListener('click', () => nextScreen());
+  }
 
-export default mainLevelArtist;
+  return mainLevelArtist;
+};
+
+export default getLevelArtist(levelArtist);

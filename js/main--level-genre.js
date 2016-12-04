@@ -63,12 +63,11 @@ const nextScreen = (event) => {
  * Если выбран ответ, отменить answerSendBtn.disabled
  * @param{Node} checkbox
  */
-checkboxList.forEach((checkbox) => {
-  checkbox.addEventListener('change', () => {
+for (let it of checkboxList) {
+  it.addEventListener('change', () => {
     answerSendBtn.disabled = !mainLevelGenre.querySelectorAll('input[type="checkbox"]:checked').length;
   });
-});
-
+}
 answerSendBtn.addEventListener('click', nextScreen);
 
 export default mainLevelGenre;

@@ -1,4 +1,4 @@
 import * as domConstructors from './dom-constructors';
-import mainWelcome from './main--welcome';
+import getMainWelcome from './main--welcome';
 
-domConstructors.renderElement(mainWelcome);
+domConstructors.renderElement(getMainWelcome);
