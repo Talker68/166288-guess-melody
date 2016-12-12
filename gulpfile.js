@@ -14,6 +14,7 @@ const imagemin = require('gulp-imagemin');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const webpack = require('gulp-webpack');
+const mocha = require('gulp-mocha');
 
 gulp.task('style', function () {
   gulp.src('sass/style.scss')
@@ -55,7 +56,16 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest('build/js/'));
 });
 
+require('babel-register');
 gulp.task('test', function () {
+  return gulp
+    .src(['js/**/*.test.js'], { read: false })
+    .pipe(mocha({
+      compilers: {
+        js: 'babel-register' // Включим поддержку "import/export" в Mocha
+      },
+      reporter: 'spec'       // Вид в котором я хочу отображать результаты тестирования
+    }));
 });
 
 gulp.task('imagemin', ['copy'], function () {
