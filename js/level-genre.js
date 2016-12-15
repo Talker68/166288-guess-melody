@@ -1,7 +1,6 @@
 import * as domConstructors from './dom-constructors';
 import getSvgTimer from './get-svg-timer';
-import nextQuestion from './game';
-import {data} from './game';
+import {data, nextQuestion} from './game';
 
 export default (inputData) => {
 

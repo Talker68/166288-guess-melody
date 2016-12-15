@@ -1,6 +1,6 @@
 import * as domConstructors from './dom-constructors';
 import createResultElement from './result';
-import createArtistElement from './level-artist';
+import createArtistElement from './screen/level-artist';
 import createGenreElement from './level-genre';
 
 const TYPES = {
@@ -92,7 +92,7 @@ const data = {
 
 let currentQuestionNum = 0;
 
-export default () => {
+const nextQuestion = () => {
 
   const questionsCount = data.questions.length;
 
@@ -108,4 +108,4 @@ export default () => {
   }
 };
 
-export {data};
+export {data, nextQuestion};
