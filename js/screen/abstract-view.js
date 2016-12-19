@@ -1,5 +1,9 @@
 export default class AbstractView {
 
+	constructor(inputData) {
+		this.inputData = inputData;
+	}
+
   get element() {
     if (!this._element) {
       this._element = document.createElement('div');
@@ -12,6 +16,11 @@ export default class AbstractView {
   getMarkUp() {
     throw new Error('Abstract method should be implemented');
   }
+
+	renderView(){
+		const mainElement = document.querySelector('.main');
+		mainElement.parentNode.replaceChild(this.element, mainElement);
+	}
 
   bindHandlers() {
     // By default threre is nothing to bind

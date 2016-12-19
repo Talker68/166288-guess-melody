@@ -1,4 +1,6 @@
-import * as domConstructors from './dom-constructors';
-import createMainWelcome from './screen/welcome-view';
+import CreateWelcome from './screen/welcome-view';
+import {data} from './game'
 
-domConstructors.renderElement(createMainWelcome());
+window.onload = () => {
+	CreateWelcome(data.rules).renderView();
+}

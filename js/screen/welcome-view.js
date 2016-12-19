@@ -1,12 +1,10 @@
 import logoHtml from './../logo';
-import AbstractView from './../view';
-import {data, nextQuestion} from './../game';
+import AbstractView from './abstract-view';
 
 class WelcomeView extends AbstractView {
 
-  constructor(dataInput) {
-    super();
-    this.data = dataInput;
+  constructor(inputData) {
+    super(inputData);
   }
 
   getMarkUp() {
@@ -35,4 +33,4 @@ class WelcomeView extends AbstractView {
   }
 }
 
-export default () => new WelcomeView(data.rules).element;
+export default (data) => new WelcomeView(data).element;

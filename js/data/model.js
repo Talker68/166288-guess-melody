@@ -28,7 +28,7 @@ export const setTime = (gameObj, time) => {
 
 export const setLives = (gameObj, lives) => {
   if (lives < 0 || lives > game.lives) {
-    throw new RangeError('Количество жизней не может быть отрицательным числом или  > 3');
+    throw new RangeError('Количество жизней не может быть отрицательным числом или > 3');
   }
 
   return Object.assign({}, gameObj, {
