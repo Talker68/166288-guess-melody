@@ -72,9 +72,6 @@ class GamePresenter {
     this.switchToNext(0, questions);
   }
 
-  /**
-   * calling results and removing timer
-   */
   goToResults() {
     result.stats = this.calcStats(statistics, this.model.currentQuestion, this.initialLives, this.model.lives, this.model.time);
     // window.stopFn();
