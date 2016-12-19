@@ -1,6 +1,5 @@
-import CreateWelcome from './screen/welcome-view';
-import {data} from './game'
+import Application from './application';
 
 window.onload = () => {
-	CreateWelcome(data.rules).renderView();
-}
+  Application.showWelcome();
+};
