@@ -1,6 +1,6 @@
 import view from './view';
 import {TYPES, welcome, result} from './data/game-data';
-import GamePresenter from './game';
+import GamePresenter from './game-presenter';
 
 export default class Application {
 
