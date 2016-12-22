@@ -2,7 +2,8 @@ export const TYPES = {
   WELCOME: 'welcome',
   ARTIST: 'artist',
   GENRE: 'genre',
-  RESULT: 'result'
+  RESULT: 'result',
+  ERROR: 'error'
 };
 
 export const result = {

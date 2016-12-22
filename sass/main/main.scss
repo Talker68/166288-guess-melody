@@ -37,6 +37,11 @@
   display: block;
   font: italic 300 2em $font;
   margin: 0 0 0.2em;
+
+  &.title--load {
+    color: $color-orange;
+    margin-bottom: 80px;
+  }
 }
 
 .text {

@@ -19,6 +19,10 @@ export default class Application {
     view(TYPES.RESULT, result);
   }
 
+  static showError(error) {
+    view(TYPES.ERROR, error);
+  }
+
   static set data(data) {
     gameData = data;
   }
