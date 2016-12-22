@@ -6,6 +6,7 @@ class ArtistView extends AbstractView {
 
   constructor(inputData) {
     super(inputData);
+    this.selectArtist = this.selectArtist.bind(this);
   }
 
   renderOption(index, data) {
@@ -22,7 +23,6 @@ class ArtistView extends AbstractView {
     return `<section class="main main--level main--level-artist">
     <div class="main-wrap">
       <div class="main-timer"></div>
-
       <h2 class="title main-title">${this.inputData.question}</h2>
       <div class="player-wrapper"></div>
       <form class="main-list">
@@ -34,21 +34,27 @@ class ArtistView extends AbstractView {
     </section>`;
   }
 
+  selectArtist(evt) {
+    const choice = evt.target;
+    if (!choice.classList.contains('main-answer-r')) {
+      return;
+    }
+    const qResult = this.inputData.answers[choice.value].isCorrect;
+    this.clearHandlers();
+    GamePresenter.questionRouter(qResult);
+  }
 
   bindHandlers() {
-    const answerList = this.element.querySelector('.main-list');
+    this.answerList = this.element.querySelector('.main-list');
     const element = this.element.querySelector('.player-wrapper');
-    const del = player(element, this.inputData.src, true, true);
 
-    answerList.addEventListener('change', (evt) => {
-      const choice = evt.target;
-      if (!choice.classList.contains('main-answer-r')) {
-        return;
-      }
-      const qResult = this.inputData.answers[choice.value].isCorrect;
-      del();
-      GamePresenter.questionRouter(qResult);
-    });
+    this.deletePlayer = player(element, this.inputData.src, true, true);
+    this.answerList.addEventListener('change', this.selectArtist);
+  }
+
+  clearHandlers() {
+    this.deletePlayer();
+    this.answerList.removeEventListener('change', this.selectArtist);
   }
 }
 

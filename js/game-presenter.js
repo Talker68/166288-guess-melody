@@ -2,9 +2,7 @@ import {result, statistics} from './data/game-data';
 import view from './view';
 import GameModel from './data/game-model';
 import Application from './application';
-import timer from './timer/timer'
-
-let stopFn;
+import timer from './timer/timer';
 
 class GamePresenter {
 
@@ -70,7 +68,7 @@ class GamePresenter {
   gameStart() {
     this.model.resetState();
 
-    stopFn = timer(this.model.maxTime, this.goToResults);
+    this.stopFn = timer(this.model.maxTime, this.goToResults);
     document.body.addEventListener('timer-tick', this.tick, false);
 
     this.timer.classList.remove('invisible');
@@ -79,7 +77,7 @@ class GamePresenter {
 
   goToResults() {
     result.stats = this.calcStats(statistics, this.model.correctQuestions, this.model.time);
-    stopFn();
+    this.stopFn();
     document.body.removeEventListener('timer-tick', this.tick);
     Application.showStats();
   }
