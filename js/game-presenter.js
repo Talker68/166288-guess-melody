@@ -1,16 +1,22 @@
-import {questions, result, statistics} from './data/game-data';
+import {result, statistics} from './data/game-data';
 import view from './view';
 import GameModel from './data/game-model';
 import Application from './application';
+import timer from './timer/timer';
 
 class GamePresenter {
 
   constructor(model = GameModel) {
     this.model = model;
-    this.initialLives = GameModel.lives;
     this.timer = document.querySelector('.timer-wrapper');
-    this.questionsCount = questions.length;
+
     this.goToResults = this.goToResults.bind(this);
+    this.tick = this.tick.bind(this);
+  }
+
+  setQuestions(questions) {
+    this.questions = questions;
+    this.questionsCount = questions.length;
   }
 
   switchToNext(questionNum, questionsArr) {
@@ -24,11 +30,11 @@ class GamePresenter {
     return {minutes, seconds};
   }
 
-  calcStats(stats, questionsPassed, initialLivesNum, currentLives, time) {
+  calcStats(stats, points, time) {
     let newStats = JSON.parse(JSON.stringify(stats));
     const currentResult = {
       time: time,
-      answers: questionsPassed - initialLivesNum + currentLives - 1,
+      answers: points,
       recent: true
     };
     newStats.push(currentResult);
@@ -55,26 +61,24 @@ class GamePresenter {
     return {time: this.formatTime(time), correctAnswers: currentResult.answers, percents: successPercent};
   }
 
-  gameStart() {
+  tick() {
+    this.model.time++;
+  }
 
-    if (this.model.currentQuestion !== 0) {
-      this.model.resetState();
-    }
+  gameStart() {
+    this.model.resetState();
+
+    this.stopFn = timer(this.model.maxTime, this.goToResults);
+    document.body.addEventListener('timer-tick', this.tick, false);
 
     this.timer.classList.remove('invisible');
-    // window.stopFn = window.initializeCountdown(this.model.maxTime);
-
-    document.body.addEventListener('timer-end', this.goToResults, false);
-    document.body.addEventListener('timer-tick', () => {
-      this.model.time++;
-    }, false);
-
-    this.switchToNext(0, questions);
+    this.switchToNext(0, this.questions);
   }
 
   goToResults() {
-    result.stats = this.calcStats(statistics, this.model.currentQuestion, this.initialLives, this.model.lives, this.model.time);
-    // window.stopFn();
+    result.stats = this.calcStats(statistics, this.model.correctQuestions, this.model.time);
+    this.stopFn();
+    document.body.removeEventListener('timer-tick', this.tick);
     Application.showStats();
   }
 
@@ -89,13 +93,15 @@ class GamePresenter {
       } else {
         this.model.lives--;
       }
+    } else {
+      this.model.correctQuestions++;
     }
 
     if (this.model.currentQuestion === this.questionsCount) {
       this.goToResults();
 
     } else {
-      this.switchToNext(this.model.currentQuestion, questions);
+      this.switchToNext(this.model.currentQuestion, this.questions);
     }
   }
 }
