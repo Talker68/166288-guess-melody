@@ -2,6 +2,7 @@ export const game = {
   currentQuestion: 0,
   lives: 3,
   timer: 0,
+  correctQuestions: 0,
   maxTime: 120,
   maxQuestionNum: 10
 };
@@ -33,5 +34,15 @@ export const setCurrentQuestion = (gameObj, questionNum) => {
 
   return Object.assign({}, gameObj, {
     currentQuestion: questionNum
+  });
+};
+
+export const setCorrectQuestions = (gameObj, number) => {
+  if (number < 0 || number > game.maxQuestionNum) {
+    throw new RangeError('Correct questions can\'t be negative or > 9');
+  }
+
+  return Object.assign({}, gameObj, {
+    correctQuestions: number
   });
 };

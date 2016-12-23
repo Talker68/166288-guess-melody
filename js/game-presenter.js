@@ -85,7 +85,6 @@ class GamePresenter {
   questionRouter(prevResult = true) {
 
     this.model.currentQuestion++;
-
     if (prevResult === false) {
       if (this.model.lives === 0) {
         this.goToResults();

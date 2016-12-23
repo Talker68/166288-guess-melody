@@ -52,6 +52,10 @@ export default (element, file, autoplay = false, controllable = true) => {
   const player = content.querySelector('audio');
   const button = content.querySelector('button');
 
+  button.onclick = (evt) => {
+    evt.preventDefault();
+  };
+
   player.onloadeddata = () => {
     if (controllable) {
       button.onclick = (evt) => {
