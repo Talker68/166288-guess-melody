@@ -37,7 +37,7 @@ class WelcomeView extends AbstractView {
   }
 
   clearHandlers() {
-    this.playButton.removeEventListener('click', this.startGame)
+    this.playButton.removeEventListener('click', this.startGame);
   }
 }
 

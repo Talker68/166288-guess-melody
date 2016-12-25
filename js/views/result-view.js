@@ -40,11 +40,11 @@ class ResultView extends AbstractView {
   bindHandlers() {
     this.replayButton = this.element.querySelector('.main-replay');
 
-    this.replayButton.addEventListener('click',this.replay);
+    this.replayButton.addEventListener('click', this.replay);
   }
 
   clearHandlers() {
-    this.replayButton.removeEventListener('click', this.replay)
+    this.replayButton.removeEventListener('click', this.replay);
   }
 }
 
