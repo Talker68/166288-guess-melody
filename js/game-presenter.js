@@ -1,8 +1,9 @@
-import {result, statistics} from './data/game-data';
 import view from './view';
 import GameModel from './data/game-model';
-import Application from './application';
 import timer from './timer/timer';
+import {getStats, setStats, formatTime} from './stats-service';
+import {result} from './data/game-data';
+import Application from './application';
 
 class GamePresenter {
 
@@ -24,49 +25,13 @@ class GamePresenter {
     view(currentQ.type, currentQ);
   }
 
-  formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    seconds = seconds % 60;
-    return {minutes, seconds};
-  }
-
-  calcStats(stats, points, time) {
-    let newStats = JSON.parse(JSON.stringify(stats));
-    const currentResult = {
-      time: time,
-      answers: points,
-      recent: true
-    };
-    newStats.push(currentResult);
-    const totalResultsNum = newStats.length;
-    let currentGamePlace = totalResultsNum;
-
-    newStats.sort((a, b) => {
-      if (a.answers === b.answers) {
-        return a.time - b.time;
-      }
-      return b.answers - a.answers;
-    });
-
-    newStats.find((el, idx) => {
-      if (el.recent === true) {
-        currentGamePlace = idx + 1;
-        return true;
-      }
-      return false;
-    });
-
-    const successPercent = Math.round((totalResultsNum - currentGamePlace) / totalResultsNum * 100);
-
-    return {time: this.formatTime(time), correctAnswers: currentResult.answers, percents: successPercent};
-  }
-
   tick() {
     this.model.time++;
   }
 
   gameStart() {
     this.model.resetState();
+    result.stats.percent = false;
 
     this.stopFn = timer(this.model.maxTime, this.goToResults);
     document.body.addEventListener('timer-tick', this.tick, false);
@@ -76,15 +41,25 @@ class GamePresenter {
   }
 
   goToResults() {
-    result.stats = this.calcStats(statistics, this.model.correctQuestions, this.model.time);
+    const formattedTime = formatTime(this.model.time);
+    getStats(this.model.correctQuestions, this.model.time, formattedTime)
+        .then((resultStats) => {
+          result.stats = resultStats;
+          Application.showStats();
+        })
+        .catch((res) => {
+          result.stats.time = formattedTime;
+          Application.showStats();
+        });
+    setStats({time: this.model.time, answers: this.model.correctQuestions});
     this.stopFn();
     document.body.removeEventListener('timer-tick', this.tick);
-    Application.showStats();
   }
 
   questionRouter(prevResult = true) {
 
     this.model.currentQuestion++;
+
     if (prevResult === false) {
       if (this.model.lives === 0) {
         this.goToResults();
