@@ -31,11 +31,16 @@ const redrawCircle = (circle, radius, animation) => {
 
 const addLeadingZero = (val) => val < 10 ? `0${val}` : val;
 
+const timerTickEvent = document.createEvent('Event');
+timerTickEvent.initEvent('timer-tick', true, true);
+
 
 const redrawTimer = (timer, animation) => {
   const total = animation.stepDuration * animation.steps;
   const passed = animation.stepDuration * animation.step;
   const timeLeft = formatTime(total, passed);
+
+  document.body.dispatchEvent(timerTickEvent);
 
   timer.querySelector('.timer-value-mins').textContent = addLeadingZero(timeLeft.minutes);
   timer.querySelector('.timer-value-secs').textContent = addLeadingZero(timeLeft.seconds);
